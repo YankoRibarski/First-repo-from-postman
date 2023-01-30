@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "628f7bd6-12b5-490f-8444-840cb9b3cd45",
+		"name": "GitHubApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25551143"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "create_first_issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.test(\"Check correct status code\",function(){\r",
+									"    var expected = 201;\r",
+									"    var actual = pm.response.code;\r",
+									"    pm.expect(expected).to.equal(actual)\r",
+									"\r",
+									"} )\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "YankoRibarski",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"first issue from postman\",}\r\n",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman/issues",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman",
+								"issues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_second_issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.test(\"Check correct status code\",function(){\r",
+									"    var expected = 201;\r",
+									"    var actual = pm.response.code;\r",
+									"    pm.expect(expected).to.equal(actual)\r",
+									"\r",
+									"} )\r",
+									"pm.test(\"Check correct status \",function(){\r",
+									"    var expected = \"Created\";\r",
+									"    var actual = pm.response.status;\r",
+									"    pm.expect(expected).to.equal(actual)\r",
+									"\r",
+									"} )\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "YankoRibarski",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"Second issue from postman\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman/issues",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman",
+								"issues"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "get_first_issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"data = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Validate correct title\", function(){\r",
+									"    var expected = \"first issue from postman\"\r",
+									"    pm.expect(expected).to.equal(data.title)\r",
+									"})\r",
+									"pm.test(\"Validate correct issue number\", function(){\r",
+									"    var expected = 1\r",
+									"    pm.expect(expected).to.equal(data.number)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/First-repo-from-postman/issues/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"First-repo-from-postman",
+								"issues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status code\", function(){pm.expect(pm.response.code).to.equal(200)})\r",
+									"\r",
+									"pm.test(\"Check status\",function(){\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\")\r",
+									"})\r",
+									"var body = pm.response.json()\r",
+									"pm.test(\"Validate correct name\",function(){\r",
+									"    pm.expect(body.name).to.equal(\r",
+									"\"First-repo-from-postman\")\r",
+									"})\r",
+									"console.log(body)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_issues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Validate that issues are with unique id\",function(){\r",
+									"    pm.expect(data[0].id).to.not.equal(data[1].id)\r",
+									"\r",
+									"})\r",
+									"pm.test(\"Validate that issues are added correctly into array of data\",function(){\r",
+									"    pm.expect(data.length).to.be.greaterThan(0)\r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman/issues",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman",
+								"issues"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "YankoRibarski",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman/issues/3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman",
+								"issues",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UPDATE",
+			"item": [
+				{
+					"name": "update_existing_repo_by_adding_description",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate corect status code\", function(){\r",
+									"    var expectedResult = 200\r",
+									"    var actualResult = pm.response.code\r",
+									"   pm.expect(expectedResult).to.equal(actualResult) \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate description is not null\", function(){\r",
+									"    pm.expect(data.description).to.not.equal(null)\r",
+									"})\r",
+									"pm.test(\"Validate correct descption\", function(){\r",
+									"    var expectedResult = \"This is my first repository created from Postman with POST method using Github api\"\r",
+									"    var actualResult = data.description\r",
+									"    pm.expect(expectedResult).to.equal(actualResult)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "YankoRibarski",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"description\" : \"This is my first repository created from Postman with POST method using Github api\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/YankoRibarski/First-repo-from-postman",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"YankoRibarski",
+								"First-repo-from-postman"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "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",
+			"type": "string"
+		}
+	]
+}
